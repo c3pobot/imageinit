@@ -11,16 +11,16 @@ module.exports = async(dir)=>{
     await fs.ensureDirSync(path.join(BASE_PATH, dir))
     const list = await getFiles(path.join(BASE_PATH, dir))
     const remoteFiles = await s3.list(dir)
-    let missingFiles = remoteFiles.filter(x=>!list.includes(x?.replace(dir+'/','')))
+    let missingFiles = remoteFiles.filter(x=>!list.includes(x.Key?.replace(dir+'/','')))
     if(!missingFiles) missingFiles = []
     if(missingFiles?.length > 0){
       console.log('Getting '+missingFiles?.length+' for '+path.join(BASE_PATH, dir))
       let i = missingFiles.length
       while(i--){
-        await SaveFile(missingFiles[i])
+        await SaveFile(missingFiles[i].Key)
       }
     }else{
-      console.log('No missing files for '+path.join(basePath, dir))
+      console.log('No missing files for '+path.join(BASE_PATH, dir))
     }
   }catch(e){
     throw(e);
