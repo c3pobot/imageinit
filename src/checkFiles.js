@@ -1,4 +1,5 @@
 'use strict'
+const log = require('./logger')
 const fs = require('fs-extra')
 const path = require('path')
 const getFiles = require('./getFiles')
@@ -14,13 +15,13 @@ module.exports = async(dir)=>{
     let missingFiles = remoteFiles.filter(x=>!list.includes(x.Key?.replace(dir+'/','')))
     if(!missingFiles) missingFiles = []
     if(missingFiles?.length > 0){
-      console.log('Getting '+missingFiles?.length+' for '+path.join(BASE_PATH, dir))
+      log.info('Getting '+missingFiles?.length+' for '+path.join(BASE_PATH, dir))
       let i = missingFiles.length
       while(i--){
         await SaveFile(missingFiles[i].Key)
       }
     }else{
-      console.log('No missing files for '+path.join(BASE_PATH, dir))
+      log.info('No missing files for '+path.join(BASE_PATH, dir))
     }
   }catch(e){
     throw(e);
