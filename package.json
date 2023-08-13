@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "update": "chmod a+x updategitdependency.sh && ./updategitdependency.sh",
     "build": "chmod a+x buildtestimage.sh && ./buildtestimage.sh c3pobot/imageinit",
     "prod": "chmod a+x buildprodimage.sh && ./buildprodimage.sh c3pobot/imageinit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.1.0",
+    "bottleneck": "^2.19.5",
     "fs-extra": "^11.1.1",
-    "node-fetch": "^2.6.7"
+    "logger": "github:c3pobot/logger",
+    "s3client": "github:c3pobot/s3client"
   }
 }
